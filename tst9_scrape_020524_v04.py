@@ -55,7 +55,7 @@ def get_wsj_data():
             cell_texts = [cell.text for cell in cells]
 
             # Now cell_texts is a list of strings, each string being the text of a cell in the row
-            print(cell_texts)
+            # print(cell_texts)   # test. prints all rows
 
             # Define name with a default value
             name = None
@@ -65,7 +65,7 @@ def get_wsj_data():
             # Check if cell_texts is not empty before trying to access its elements
             if cell_texts:
                 name = cell_texts[0]
-                print(name)
+                # print(name)     # test. prints all rows
 
             # If the first cell's text is Advancing, increment the counter
             if name == 'Advancing':
@@ -73,12 +73,13 @@ def get_wsj_data():
                 # second Advancing, grab the second cell's text
                 if advancing_counter == 2:
                     print('***Found second Advancing')
-                    print(cell_texts[1])                # NYSE
+                    # print(cell_texts[1])    # test. prints Advancing rows
                     Nyse_UVOL = int(cell_texts[1].replace(',', ''))      # NYSE
                     Nas_Comp_UVOL = int(cell_texts[2].replace(',', ''))  # Nasdaq Composite
 
             else:
-                print('No td elements found in this row')
+                # print('No td elements found in this row')   # test. prints all rows
+                pass
 
             # If the first cell's text is Declining, increment the counter
             if name == 'Declining':
@@ -86,12 +87,13 @@ def get_wsj_data():
                 # second Declining, grab the second cell's text
                 if declining_counter == 2:
                     print('***Found second Declining')
-                    print(cell_texts[1])                # NYSE
+                    # print(cell_texts[1])    # test. prints Advancing rows
                     Nyse_DVOL = int(cell_texts[1].replace(',', ''))      # NYSE
                     Nas_Comp_DVOL = int(cell_texts[2].replace(',', ''))  # Nasdaq Composite
 
             else:
-                print('No td elements found in this row')
+                # print('No td elements found in this row')   # test. prints all rows
+                pass
 
         except NoSuchElementException:
             print('Element not found')
@@ -100,8 +102,8 @@ def get_wsj_data():
         except TimeoutException:
             print('Wait timed out')
 
-    print("NYSE U/D Volume percentage is ", Nyse_UVOL/(Nyse_UVOL + Nyse_DVOL) * 100)
-    print("Nasdaq Composite U/D Volume percentage is ", Nas_Comp_UVOL/(Nas_Comp_UVOL + Nas_Comp_DVOL) * 100)
+    print("NYSE U/D Volume percentage is ", Nyse_UVOL/(Nyse_UVOL + Nyse_DVOL) * 100, " %")
+    print("Nasdaq Composite U/D Volume percentage is ", Nas_Comp_UVOL/(Nas_Comp_UVOL + Nas_Comp_DVOL) * 100, " %")
 
     # close the driver
     driver.quit()
